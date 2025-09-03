@@ -1,0 +1,13 @@
+.navbar {
+    background:black;
+    border:1px solid white;
+}
+
+.navbar li {
+    background:darkred;
+    
+}
+
+.navbar li a {
+    color:black;
+}
