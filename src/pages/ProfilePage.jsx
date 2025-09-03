@@ -1,31 +1,38 @@
 import { useParams, useLocation } from "react-router-dom"
 import NavBar from "../components/NavBar"
+import { useEffect, useState } from "react";
 
-const ProfilePage = ({students}) => {
+const ProfilePage = () => {
 
-    const {state} = useLocation();
-    
-    const {name,age,id} = state;
+    const [user, setUser] = useState(null);
 
+    const {id} = useParams();
 
+    const fetchUser = async () => {
+          const response = await fetch("https://jsonplaceholder.typicode.com/users/" + id);
+          const json = await response.json();
+          console.log(json);
+          setUser(json)}
 
+    useEffect(() => {
 
-
-    // const {id} = useParams();
-    // console.log(id);
-    //Matcha id från array med den valda profilen
-    // let profile = students.find(student => student.id === Number(id));
-    // console.log(profile);
+        if(location.state){
+            setUser(location.state)
+        } else {
+          
+        fetchUser();
+        
+        }
+    },[])
 
     return(
     <div>
         <NavBar/>
 
-        <h1>Profile</h1>
-        <p><strong>Name:</strong>{name}</p>
-        <p><strong>Age:</strong>{age}</p>
-        <p><strong>Id:</strong>{id}</p>
-
+        {user && <><h1>Profile</h1>
+        <p><strong>Name: </strong>{user.name}</p>
+        <p><strong>Email: </strong>{user.email}</p>
+        </> }
     </div>)
 }
 
