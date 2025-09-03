@@ -9,9 +9,9 @@ const Homepage = () => {
     
     useEffect(() => {
         const fetchData = async () => {
+          console.log("Hämtar data för samtliga användare");
           const response = await fetch("https://jsonplaceholder.typicode.com/users");
           const json = await response.json();
-          console.log(json);
           setUsers(json);
         }
         fetchData();
@@ -22,8 +22,8 @@ const Homepage = () => {
         <NavBar/>
         <h1>Homepage</h1>
         <h2>React router example</h2>
-        <ul>
-            {users.map(user => <li>
+        <ul className="navbar">
+            {users.map((user,i) => <li key={i}>
                 <Link to={`/profile/${user.id}`} state={user} >{user.name}</Link>
                 </li>)}
         </ul>

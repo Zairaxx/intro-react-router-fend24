@@ -5,23 +5,24 @@ import { useEffect, useState } from "react";
 const ProfilePage = () => {
 
     const [user, setUser] = useState(null);
-
+    
+    const location = useLocation()
     const {id} = useParams();
 
     const fetchUser = async () => {
           const response = await fetch("https://jsonplaceholder.typicode.com/users/" + id);
           const json = await response.json();
-          console.log(json);
-          setUser(json)}
+          setUser(json)
+    }
 
     useEffect(() => {
-
+          
         if(location.state){
+            console.log("Data finns i location - Ingen datahämtning sker!");
             setUser(location.state)
         } else {
-          
-        fetchUser();
-        
+            console.log("Data finns inte! Vi hämtar från API")
+            fetchUser();
         }
     },[])
 
